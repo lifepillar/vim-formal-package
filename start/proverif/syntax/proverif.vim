@@ -8,12 +8,12 @@ if exists("b:current_syntax")
 endif
 
 syn case match
-syn keyword proverifKeyword among block channel choice clauses const data def elimtrue else
+syn keyword proverifKeyword among block channel choice clauses const data def diff do elimtrue else
 syn keyword proverifKeyword equation equivalence event expand fail forall foreach free fun get
-syn keyword proverifKeyword if in insert let letfun memberOptim new noninterf not nounif
-syn keyword proverifKeyword options otherwise out param phase pred private proba process proof
-syn keyword proverifKeyword putbegin query reduc set suchthat sync table then type typeConverter
-syn keyword proverifKeyword weaksecret yield
+syn keyword proverifKeyword if implementation in insert let letfun memberOptim new noninterf not nounif
+syn keyword proverifKeyword options or otherwise out param phase pred private proba process proof
+syn keyword proverifKeyword public_vars putbegin query reduc secret set suchthat sync table then
+syn keyword proverifKeyword type typeConverter weaksecret yield
 syn match   proverifKeyword "\<inj-event\>"
 
 syn match proverifConstant "\<0\>\|[.;]"
