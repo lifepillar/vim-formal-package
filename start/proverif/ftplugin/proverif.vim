@@ -8,10 +8,14 @@ if exists("b:did_ftplugin")
 endif
 let b:did_ftplugin = 1
 
-let s:undo_ftplugin = "setlocal commentstring<"
+let s:undo_ftplugin = "setlocal commentstring< formatoptions<"
 let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . '|' : '') . s:undo_ftplugin
 
 setlocal commentstring=(*%s*)
+setlocal formatoptions-=2rot
+setlocal formatoptions+=cjlq
+setlocal suffixesadd=.pv
+setlocal omnifunc=syntaxcomplete#Complete
 
 " vim: foldmethod=marker nowrap et ts=2 sw=2
 
