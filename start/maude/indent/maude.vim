@@ -71,6 +71,6 @@ fun! GetMaudeIndent()
     return l:prevind + s:shiftwidth()
   endif
 
-  return l:ind
+  return l:prevind
 endf
 
