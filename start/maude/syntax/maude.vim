@@ -52,7 +52,7 @@ syn keyword maudeAttr frozen prec precedence format gather special
 syn match maudeAttr "\%(left\|right\)\s*id:"
 
 syn match maudeOperator "[<@?!+*]"
-syn match maudeOperator "->\|\~>\|<=?\|=>\|:=\|/\\"
+syn match maudeOperator "-->\|-?->\|->\|\~>\|<=?\|=>\|:=\|/\\"
 
 syn match maudeDelimiter /[[\](){}.:,";]/
 
