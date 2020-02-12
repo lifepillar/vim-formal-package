@@ -4,7 +4,7 @@
 if exists("b:did_indent")
   finish
 endif
-" let b:did_indent = 1
+let b:did_indent = 1
 
 setlocal indentexpr=GetMaudeIndent()
 setlocal indentkeys+==endfm,=endm,=endom,=endsm,=endth,=endfth,=endsth,=endv,=)***
@@ -22,9 +22,9 @@ else
   endf
 endif
 
-" if exists("*GetMaudeIndent")
-"   finish
-" endif
+if exists("*GetMaudeIndent")
+  finish
+endif
 
 fun! s:is_comment(l)
   return synIDattr(
@@ -67,7 +67,7 @@ fun! GetMaudeIndent()
     return l:prevind - s:shiftwidth()
   endif
 
-  if getline(l:prevlnum) =~# '\<\%([fos]\=mod\|[fs]\=th\|view\)\>'
+  if getline(l:prevlnum) =~# '^\s*\%([fos]\=mod\|[fs]\=th\|view\)\>'
     return l:prevind + s:shiftwidth()
   endif
 
