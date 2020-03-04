@@ -17,7 +17,7 @@ let s:proverif_errorformat =
       \.',%A%>File "%f"\, line %l\, characters%\\= %c%.%#'
       \.',%Z%trror: %m'
       \.',%Z%tarning: %m'
-      \.',%IRESULT %m'
+      \.',%+IRESULT %m'
 
 " Ignore unmatched lines
 let s:proverif_errorformat .= ',%-G%.%#'
