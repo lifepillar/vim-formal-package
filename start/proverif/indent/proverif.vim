@@ -71,13 +71,18 @@ fun! GetProverifIndent()
     return l:prevind - s:shiftwidth()
   endif
 
-  " Unindent after a line ending with a dot.
+  " Reset indentation after a line ending with a dot.
   if l:prevind > 0 && getline(l:prevlnum) =~# '\.\s*$'
-    return l:prevind - s:shiftwidth()
+    return 0
   endif
 
   " Indent after a line containing only `process` or ending with `=`, `else` or `then`.
   if getline(l:prevlnum) =~# '^\s*\%(process\)\s*\_$\|\%(=\|\<else\|\<then\)\s*$'
+    return l:prevind + s:shiftwidth()
+  endif
+
+  " Indent after a `fun`, `equation`, `reduc` line not ending with a dot
+  if getline(l:prevlnum) =~# '^\s*\%(fun\|reduc\|equation\)\>[^.]*$'
     return l:prevind + s:shiftwidth()
   endif
 
