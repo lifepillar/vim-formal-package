@@ -29,6 +29,7 @@ syn match proverifDelimiter "[[\]()]"
 
 syn keyword proverifOption  convergent data linear private
 syn keyword proverifSetting attacker keyCompromise ignoreTypes traceDisplay
+syn keyword proverifSetting abbreviateDerivation explainDerivation
 
 syn keyword proverifType bitstring
 
