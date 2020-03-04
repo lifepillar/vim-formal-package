@@ -9,6 +9,7 @@ endif
 
 syn sync minlines=1 maxlines=100
 syn case match
+syn iskeyword @,48-57,192-255,_,'
 
 syn keyword proverifKeyword among block channel choice clauses const def diff do elimtrue else
 syn keyword proverifKeyword equation equivalence event expand fail forall foreach free fun get
