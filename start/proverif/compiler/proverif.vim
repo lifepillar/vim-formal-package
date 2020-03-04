@@ -14,7 +14,7 @@ set cpo&vim
 " (:help quickfix-valid).
 let s:proverif_errorformat =
       \ '%trror: %m'
-      \.',%E%>File "%f"\, line %l\, characters %c%.%#'
+      \.',%E%>File "%f"\, line %l\, characters%\\= %c%.%#'
       \.',%Z%trror: %m'
       \.',%IRESULT %m'
 
