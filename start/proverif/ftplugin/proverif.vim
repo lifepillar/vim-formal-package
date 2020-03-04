@@ -17,5 +17,12 @@ setlocal formatoptions+=cjlq
 setlocal suffixesadd=.pv
 setlocal omnifunc=syntaxcomplete#Complete
 
+compiler proverif
+
+" Commands for asynchronous verification
+command! -buffer -nargs=? -complete=file ProVerif          call proverif#verify(<q-args>)
+command!         -nargs=0                ProVerifJobStatus call proverif#job_status()
+command!         -nargs=0                ProVerifStopJobs  call proverif#stop_jobs()
+
 " vim: foldmethod=marker nowrap et ts=2 sw=2
 
