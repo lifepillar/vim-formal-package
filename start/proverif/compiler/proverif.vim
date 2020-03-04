@@ -13,7 +13,8 @@ set cpo&vim
 " to avoid recognizing the comma as a separator of error formats
 " (:help quickfix-valid).
 let s:proverif_errorformat =
-      \ '%EFile "%f"\, line %l\, characters %c%.%#'
+      \ '%trror: %m'
+      \.',%E%>File "%f"\, line %l\, characters %c%.%#'
       \.',%Z%trror: %m'
       \.',%IRESULT %m'
 
