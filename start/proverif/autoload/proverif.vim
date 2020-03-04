@@ -109,23 +109,14 @@ function! s:callback(path, job, status) abort
   endif
   " Get info about the current window
   let l:winid = s:win_getid()             " Save window id
-  let l:efm = &l:errorformat              " Save local errorformat
   let l:cwd = fnamemodify(getcwd(), ":p") " Save local working directory
-  " Set errorformat to parse proverif errors
-  execute 'setl efm=' . b:proverif_errorformat
-  try " Set cwd to expand error file correctly
-    execute 'lcd' fnameescape(fnamemodify(a:path, ':h'))
-  catch /.*/
-    execute 'setl efm=' . escape(l:efm, ' ')
-    throw v:exception
-  endtry
+  execute 'lcd' fnameescape(fnamemodify(a:path, ':h'))
   try
     execute 'cgetfile' fnameescape(fnamemodify(a:path, ':r') . '.out')
     botright cwindow
-  finally " Restore cwd and errorformat
+  finally " Restore cwd
     execute s:win_id2win(l:winid) . 'wincmd w'
     execute 'lcd ' . fnameescape(l:cwd)
-    execute 'setl efm=' . escape(l:efm, ' ')
   endtry
   if a:status == 0
     call s:proverif_echo('Success!', 'ModeMsg')
