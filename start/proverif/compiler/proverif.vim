@@ -14,8 +14,9 @@ set cpo&vim
 " (:help quickfix-valid).
 let s:proverif_errorformat =
       \ '%trror: %m'
-      \.',%E%>File "%f"\, line %l\, characters%\\= %c%.%#'
+      \.',%A%>File "%f"\, line %l\, characters%\\= %c%.%#'
       \.',%Z%trror: %m'
+      \.',%Z%tarning: %m'
       \.',%IRESULT %m'
 
 " Ignore unmatched lines
