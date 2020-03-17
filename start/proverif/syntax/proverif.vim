@@ -27,24 +27,27 @@ syn match proverifOperator "&&\|||\|<>"
 syn match proverifOperator "==>\|<-R\?\|<=\|->\|<->\|<=>"
 syn match proverifDelimiter "[[\]()]"
 
-syn keyword proverifOption  convergent data linear private
+syn region proverifOption matchgroup=proverifOperator start=/\[/ end=/]/ contains=proverifOptionValue
+syn keyword proverifOptionValue contained convergent data linear private reachability pv_reachability
+syn keyword proverifOptionValue contained real_or_random pv_real_or_random
 syn keyword proverifSetting attacker keyCompromise ignoreTypes traceDisplay
-syn keyword proverifSetting abbreviateDerivation explainDerivation
+syn keyword proverifSetting abbreviateDerivation explainDerivation simplifyProcess
+syn keyword proverifSetting swapping interactiveSwapping
 
 syn keyword proverifType bitstring
 
 syn keyword proverifTodo contained TODO FIXME XXX DEBUG NOTE
-syn region proverifComment matchgroup=proverifComment start=/(\*/ end=/\*)/ contains=proverifTodo
+syn region proverifComment matchgroup=proverifComment start=/(\*/ end=/\*)/ contains=proverifTodo keepend
 
-hi def link proverifComment   Comment
-hi def link proverifConstant  Constant
-hi def link proverifDelimiter Delimiter
-hi def link proverifKeyword   Keyword
-hi def link proverifOperator  Operator
-hi def link proverifOption    StorageClass
-hi def link proverifSetting   Debug
-hi def link proverifTodo      Todo
-hi def link proverifType      Type
+hi def link proverifComment     Comment
+hi def link proverifConstant    Constant
+hi def link proverifDelimiter   Delimiter
+hi def link proverifKeyword     Keyword
+hi def link proverifOperator    Operator
+hi def link proverifOptionValue StorageClass
+hi def link proverifSetting     Debug
+hi def link proverifTodo        Todo
+hi def link proverifType        Type
 
 let b:current_syntax = "proverif"
 
