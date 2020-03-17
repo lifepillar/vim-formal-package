@@ -119,7 +119,7 @@ function! s:callback(path, job, status) abort
     execute 'lcd ' . fnameescape(l:cwd)
   endtry
   if a:status == 0
-    call s:proverif_echo('Success!', 'ModeMsg')
+    call s:proverif_echo('Finished!', 'ModeMsg')
   else
     call s:proverif_echo('There are errors. ', 'ErrorMsg')
   endif
