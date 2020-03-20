@@ -23,7 +23,8 @@ if exists("loaded_matchit")
         \ '\<mod\>:\<endm\>,' .
         \ '\<fmod\>:\<endfm\>,' .
         \ '\<omod\>:\<endom\>,' .
-        \ '\<smod\>:\<endsm\>,'
+        \ '\<smod\>:\<endsm\>,' .
+        \ '\<view\>:\<endv\>,'
   " Ignore comments and strings
   let b:match_skip = 'synIDattr(synID(line("."), col("."), 1), "name")
         \ =~# "^maude\\%(Comment\\|String\\|\\)$"'
