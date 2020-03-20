@@ -92,6 +92,7 @@ function! proverif#close_cb(channel)
 endfunction
 
 function! s:verify(path)
+  update
   call add(g:proverif_jobs,
         \ job_start(add(s:sh(), proverif#command() . ' ' . shellescape(fnamemodify(a:path, ":t"))), {
         \   'close_cb' : 'proverif#close_cb',
