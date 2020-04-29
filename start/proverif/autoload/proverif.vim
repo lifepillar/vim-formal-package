@@ -80,11 +80,11 @@ function! proverif#stop_jobs()
   endif
 endfunction
 
-function! proverif#callback(path, job, status)
+function! proverif#callback(path, start_time, job, status)
   if index(g:proverif_jobs, a:job) != -1 && job_status(a:job) != 'run' " just in case
     call remove(g:proverif_jobs, index(g:proverif_jobs, a:job))
   endif
-  call s:callback(a:path, a:job, a:status)
+  call s:callback(a:path, a:start_time, a:job, a:status)
 endfunction
 
 function! proverif#close_cb(channel)
@@ -97,17 +97,18 @@ function! s:verify(path)
         \ job_start(add(s:sh(), proverif#command() . ' ' . shellescape(fnamemodify(a:path, ":t"))), {
         \   'close_cb' : 'proverif#close_cb',
         \   'exit_cb'  : function(get(b:, 'proverif_callback', get(g:, 'proverif_callback', 'proverif#callback')),
-        \                         [a:path]),
+        \                         [a:path, reltime()]),
         \   'in_io'    : 'null',
         \   'out_io'   : 'file',
         \   'out_name' : fnamemodify(a:path, ':r').'.out'
         \ }))
 endfunction
 
-function! s:callback(path, job, status) abort
+function! s:callback(path, start_time, job, status) abort
   if a:status < 0 " Assume the job was terminated
     return
   endif
+  let l:time_passed = reltimefloat(reltime(a:start_time))
   " Get info about the current window
   let l:winid = s:win_getid()             " Save window id
   let l:cwd = fnamemodify(getcwd(), ":p") " Save local working directory
@@ -120,14 +121,16 @@ function! s:callback(path, job, status) abort
     execute 'lcd ' . fnameescape(l:cwd)
   endtry
   if a:status == 0
-    call s:proverif_echo('Finished!', 'ModeMsg')
+    call s:proverif_echo('Finished! ['.printf('%.03f', l:time_passed).'s]', 'ModeMsg')
   else
     call s:proverif_echo('There are errors. ', 'ErrorMsg')
   endif
 endfunction
 
 function! proverif#command()
+  let libs = get(b:, 'proverif_lib', get(g:, 'proverif_lib', []))
   return get(b:, 'proverif', get(g:, 'proverif', 'proverif'))
+        \ . (empty(libs) ? '' : ' -lib ') . join(libs, ' -lib ')
 endfunction
 
 " Accepts an optional path. If no argument is given, uses the path of the
