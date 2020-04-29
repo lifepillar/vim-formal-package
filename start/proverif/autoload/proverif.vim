@@ -74,7 +74,7 @@ function! proverif#stop_jobs()
   endfor
   let g:proverif_jobs = l:tmp
   if empty(g:proverif_jobs)
-    call s:proverif_echo('Done. No jobs running.', 'ModeMsg')
+    return
   else
     call s:proverif_echo('There are still some jobs running. Please try again.', 'WarningMsg')
   endif
@@ -105,10 +105,11 @@ function! s:verify(path)
 endfunction
 
 function! s:callback(path, start_time, job, status) abort
+  let l:time_passed = reltimefloat(reltime(a:start_time))
   if a:status < 0 " Assume the job was terminated
+    call s:proverif_echo('Job interrupted after '.printf('%.03f', l:time_passed).'s', 'ModeMsg')
     return
   endif
-  let l:time_passed = reltimefloat(reltime(a:start_time))
   " Get info about the current window
   let l:winid = s:win_getid()             " Save window id
   let l:cwd = fnamemodify(getcwd(), ":p") " Save local working directory
@@ -123,7 +124,7 @@ function! s:callback(path, start_time, job, status) abort
   if a:status == 0
     call s:proverif_echo('Finished! ['.printf('%.03f', l:time_passed).'s]', 'ModeMsg')
   else
-    call s:proverif_echo('There are errors. ', 'ErrorMsg')
+    call s:proverif_echo('There are errors ['.printf('%.03f', l:time_passed).'s]', 'ErrorMsg')
   endif
 endfunction
 
