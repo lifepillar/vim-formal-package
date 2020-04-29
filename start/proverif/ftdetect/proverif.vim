@@ -1,1 +1,1 @@
-autocmd BufRead,BufNewFile *.pv setfiletype proverif
+autocmd BufRead,BufNewFile *.pv,*.pvl setfiletype proverif
