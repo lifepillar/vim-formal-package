@@ -32,7 +32,7 @@ syn keyword proverifOptionValue contained real_or_random pv_real_or_random typeC
 syn keyword proverifOptionValue contained block memberOptim
 syn keyword proverifPredicate attacker ev evinj mess
 syn region proverifSettings matchgroup=proverifKeyword start=/\<set\>/ end=/\./ contains=proverifSetting,proverifSettingValue,proverifOperator keepend
-syn keyword proverifSetting contained ignoreTypes attacker keyCompromise simplifyProcess
+syn keyword proverifSetting contained ignoreTypes attacker keyCompromise simplifyProcess preciseActions
 syn keyword proverifSetting contained rejectChoiceTrueFalse rejectNoSimplif movenew maxDepth maxHyp
 syn keyword proverifSetting contained selFun stopTerm redundancyElim redundancyHypElim
 syn keyword proverifSetting contained swapping interactiveSwapping predicatesImplementable traceDisplay
