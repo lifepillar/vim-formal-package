@@ -7,7 +7,7 @@ if exists("b:current_syntax")
   finish
 endif
 
-syn sync minlines=1 maxlines=100
+syn sync minlines=100
 syn case match
 syn iskeyword @,48-57,192-255,_,'
 
