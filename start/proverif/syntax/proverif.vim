@@ -19,7 +19,7 @@ syn keyword proverifKeyword public_vars putbegin query reduc secret suchthat syn
 syn keyword proverifKeyword type weaksecret yield
 syn match   proverifKeyword "\<inj-event\>"
 
-syn match proverifConstant "\<0\>\|[.;]"
+syn match proverifConstant "\<0\>\|[.;|]"
 
 syn match proverifOperator "[:!=/*]"
 syn match proverifOperator "&&\|||\|<>"
