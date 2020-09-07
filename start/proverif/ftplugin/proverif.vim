@@ -14,9 +14,8 @@ let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . '|' : '') .
 setlocal autoindent
 setlocal comments=sr:(*,mb:*,ex:*)
 setlocal commentstring=(*%s*)
-setlocal formatoptions=croq
-setlocal formatoptions+=cjlq
-setlocal suffixesadd=.pv
+setlocal formatoptions=croqjl
+setlocal suffixesadd=.pv,.pvl
 setlocal omnifunc=syntaxcomplete#Complete
 
 compiler proverif
