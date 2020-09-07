@@ -26,9 +26,9 @@ else
   endf
 endif
 
-" if exists("*GetProverifIndent")
-"   finish
-" endif
+if exists("*GetProverifIndent")
+  finish
+endif
 
 fun! s:is_comment(l)
   return synIDattr(synID(a:l, match(getline(a:l), '\S') + 1, 1), "name") =~# "Comment"
