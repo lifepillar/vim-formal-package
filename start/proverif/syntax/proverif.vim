@@ -19,12 +19,12 @@ syn keyword proverifKeyword public_vars putbegin query reduc secret suchthat syn
 syn keyword proverifKeyword type weaksecret yield
 syn match   proverifKeyword "\<inj-event\>"
 
-syn match proverifConstant "\<0\>\|[.;\|]"
+syn match proverifConstant "\<0\>\|[.;]"
 
 syn match proverifOperator "[:!=/*]"
 syn match proverifOperator "&&\|||\|<>"
 syn match proverifOperator "==>\|<->\|<-R\?\|<=\|->\|<=>"
-syn match proverifDelimiter "[[\](){}]"
+syn match proverifDelimiter "[[\]\|(){}]"
 
 syn region proverifOption matchgroup=proverifOperator start=/\[/ end=/]/ contains=proverifOptionValue
 syn keyword proverifOptionValue contained convergent data linear private reachability pv_reachability
