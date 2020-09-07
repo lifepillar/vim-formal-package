@@ -8,11 +8,13 @@ if exists("b:did_ftplugin")
 endif
 let b:did_ftplugin = 1
 
-let s:undo_ftplugin = "setlocal commentstring< formatoptions<"
+let s:undo_ftplugin = "setlocal autoindent< comments< commentstring< formatoptions< suffixesadd< omnifunc<"
 let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . '|' : '') . s:undo_ftplugin
 
+setlocal autoindent
+setlocal comments=sr:(*,mb:*,ex:*)
 setlocal commentstring=(*%s*)
-setlocal formatoptions-=2rot
+setlocal formatoptions=croq
 setlocal formatoptions+=cjlq
 setlocal suffixesadd=.pv
 setlocal omnifunc=syntaxcomplete#Complete

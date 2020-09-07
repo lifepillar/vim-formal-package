@@ -9,9 +9,11 @@ endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetProverifIndent()
-setlocal indentkeys+==else,=let,=process,=then,=*),==
+setlocal indentkeys+==else,0)
+setlocal nolisp
+setlocal nosmartindent
 
-let b:undo_indent = "setl indentkeys< indentexpr<"
+let b:undo_indent = "setl indentkeys< indentexpr< lisp< smartindent<"
 
 if exists('*shiftwidth')
   fun! s:shiftwidth()
@@ -29,14 +31,11 @@ endif
 " endif
 
 fun! s:is_comment(l)
-  return synIDattr(
-        \ synID(a:l,
-        \     match(getline(a:l), '\S')+1, 0)
-        \ , "name")
-        \ =~# "Comment"
+  return synIDattr(synID(a:l, match(getline(a:l), '\S') + 1, 1), "name") =~# "Comment"
 endf
 
 fun! GetProverifIndent()
+  let l:this = getline(v:lnum)
   let l:ind = indent(v:lnum)
 
   " Get previous non-blank line
@@ -45,45 +44,59 @@ fun! GetProverifIndent()
     return l:ind
   endif
 
+  let l:prev = getline(l:prevlnum)
   let l:prevind = indent(l:prevlnum)
 
   " Indentation rules for comments
-  if s:is_comment(l:prevlnum) == 1
+  if s:is_comment(l:prevlnum)
+    " If the previous line was a one-line comment, keep the same indentation
+    if l:prev =~# '^\s*(\*.*\*)\s*$'
+      return l:prevind
+    endif
     " Increase indentation after opening a multi-line comment
-    if getline(l:prevlnum) =~# '^\s*(\*' && getline(l:prevlnum) !~# '\*)\s*$'
-      return l:prevind + s:shiftwidth()
+    if l:prev =~# '^\s*(\*' && l:prev !~# '\*)\s*$'
+      return l:prevind + (l:this =~ '^\s*\*' ? 1 : s:shiftwidth())
     endif
-    " Decrease indentation when closing a multi-line comment
-    if getline(v:lnum) =~# '^\s*\*)'
-      return l:prevind - s:shiftwidth()
+    " Reset indentation after closing a comment, but only when it is 0 or 1
+    if l:prev =~# '^\s\=\*)'
+      return 0
     endif
-    " Otherwise, return -1 to tell Vim to use the formatoptions setting to
-    " determine the indent to use But only if the next line is blank.  This
-    " would be true if the user is typing, but it would not be true if the
-    " user is reindenting the file
-    if getline(v:lnum) =~# '^\s*$'
-      return -1
-    endif
+    return -1
   endif
 
-  " Unindent `else`
-  if getline(v:lnum) =~# '\<else\s*$'
-    return l:prevind - s:shiftwidth()
-  endif
+  " Strip comments
+  let l:this = substitute(l:this, '(\*.\{-}\*)', '', 'g')
+  let l:prev = substitute(l:prev, '(\*\{-}\*)', '', 'g')
 
-  " Reset indentation after a line ending with a dot.
-  if l:prevind > 0 && getline(l:prevlnum) =~# '\.\s*$'
+  " Reset indentation after a line ending with a dot
+  if l:prevind > 0 && l:prev =~# '\.\s*$'
     return 0
   endif
 
-  " Indent after a line containing only `process` or ending with `=`, `else` or `then`.
-  if getline(l:prevlnum) =~# '^\s*\%(process\)\s*\_$\|\%(=\|\<else\|\<then\)\s*$'
+  " Unindent `else` at the start of a line.
+  if l:this =~# '^\s*else'
+    return l:prevind - s:shiftwidth()
+  endif
+
+  " Indent when the previous line ends with certain keywords or symbols
+  if l:prev =~# '\%(=\|\<else\|\<then\)\s*$'
     return l:prevind + s:shiftwidth()
   endif
 
-  " Indent after a `fun`, `equation`, `reduc` line not ending with a dot
-  if getline(l:prevlnum) =~# '^\s*\%(fun\|reduc\|equation\)\>[^.]*$'
+  " Indent when the previous line begins with certain keywords
+  " and does not end with a dot.
+  if l:prev =~# '^\s*\%(equation\|fun\|event\|process\|query\|reduc\)[^.]*$'
     return l:prevind + s:shiftwidth()
+  endif
+
+  " Indent lines with an unmatched open parenthesis.
+  if l:prev =~# '([^)]*$'
+    return l:prevind + s:shiftwidth()
+  endif
+
+  " Decrease indent in lines with an unmatched closed parenthesis.
+  if l:this =~# '^[^(]*)'
+    return l:prevind - s:shiftwidth()
   endif
 
   return l:prevind
