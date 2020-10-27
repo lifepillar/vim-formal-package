@@ -44,8 +44,7 @@ syn keyword proverifSetting contained unifyDerivation reconstructDerivation disp
 syn keyword proverifSettingValue contained true false all none active passive approx strict
 syn keyword proverifSettingValue contained interactive short long check nocheck simple best beginOnly
 syn keyword proverifSettingValue contained TermMaxsize Term NounifsetMaxsize Nounifset explained
-" Used indentation
-syn region proverifMacro matchgroup=proverifDelimiter start=/{/ end=/}/ keepend
+syn region proverifMacro matchgroup=proverifDelimiter start=/{/ end=/}/ keepend contains=ALL
 
 syn keyword proverifType bitstring
 
