@@ -79,23 +79,23 @@ fun! GetProverifIndent()
   endif
 
   " Indent when the previous line ends with certain keywords or symbols
-  if l:prev =~# '\%(=\|\<else\|\<then\)\s*$'
+  if l:prev =~# '\%(\<else\|\<then\)\s*$'
     return l:prevind + s:shiftwidth()
   endif
 
   " Indent when the previous line begins with certain keywords
   " and does not end with a dot.
-  if l:prev =~# '^\s*\%(equation\|forall\|fun\|event\|process\|query\|reduc\)[^.]*$'
+  if l:prev =~# '^\s*\%(equation\|equiv\|forall\|fun\|event\|process\|query\|reduc\)[^.]*$'
     return l:prevind + s:shiftwidth()
   endif
 
   " Indent lines with an unmatched open parenthesis.
-  if l:prev =~# '([^)]*$'
+  if l:prev =~# '\%(([^)]*\|\[[^\]]*\|{[^}]*\)$'
     return l:prevind + s:shiftwidth()
   endif
 
   " Decrease indent in lines with an unmatched closed parenthesis.
-  if l:this =~# '^[^(]*)'
+  if l:this =~# '^\%([^(]*)\|[^\[]*\]\|[^{]*}\)'
     return l:prevind - s:shiftwidth()
   endif
 
