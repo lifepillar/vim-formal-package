@@ -18,13 +18,15 @@ syn keyword cryptoverifKeyword let letfun max maxlength new newChannel newOracle
 syn keyword cryptoverifKeyword Pcoll2rand proba process proof public_vars query query_equiv return run
 syn keyword cryptoverifKeyword secret suchthat table then time type yield
 syn match   cryptoverifKeyword /\<inj-event\>/
+syn match   cryptoverifKeyword /\<independent-of\>/
 
 syn keyword cryptoverifIdentifier AC ACU ACUN assoc assocU commut commut_group group
 " TODO: put length, max, maxlength here?
 syn keyword cryptoverifFunction AEAD AEAD_INDdollar_CPA AEAD_INDdollar_CPA_all_args AEAD_INDdollar_CPA_nonce
 syn keyword cryptoverifFunction AEAD_all_args AEAD_from_AEAD_nonce AEAD_from_Enc_then_MAC AEAD_nonce
 syn keyword cryptoverifFunction AEAD_nonce_all_args Auth_Enc_from_AEAD Auth_Enc_from_AEAD_nonce
-syn keyword cryptoverifFunction Auth_Enc_from_Enc_then_MAC CollisionResistant_hash DH_X25519 DH_X448
+syn keyword cryptoverifFunction AuthEnc_from_AEAD_nonce AuthEnc_from_AEAD Auth_Enc_from_Enc_then_MAC
+syn keyword cryptoverifFunction CollisionResistant_hash DH_X25519 DH_X448
 syn keyword cryptoverifFunction DH_dist_random_group_element_vs_exponent DH_basic DH_proba_collision
 syn keyword cryptoverifFunction square_DH_proba_collision DH_good_group FixedPreimageResistant_hash
 syn keyword cryptoverifFunction FixedPreimageResistant_hash_all_args FixedSecondPreimageResistant_hash
