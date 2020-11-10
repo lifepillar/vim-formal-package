@@ -30,20 +30,27 @@ syn region proverifOption matchgroup=proverifOperator start=/\[/ end=/]/ contain
 syn keyword proverifOptionValue contained convergent data linear private reachability pv_reachability
 syn keyword proverifOptionValue contained real_or_random pv_real_or_random typeConverter
 syn keyword proverifOptionValue contained block memberOptim
-syn keyword proverifPredicate attacker ev evinj mess
+syn keyword proverifOptionValue contained noneSat discardSat instantiateSat fullSat removeEvents keepEvents
+syn keyword proverifOptionValue contained noneVerif discardVerif instantiateVerif fullVerif
+syn keyword proverifOptionValue contained maxSubset proveAll noInduction keep precise
+
+syn keyword proverifPredicate attacker ev evinj mess subterm
+
 syn region proverifSettings matchgroup=proverifKeyword start=/\<set\>/ end=/\./ contains=proverifSetting,proverifSettingValue,proverifOperator keepend
-syn keyword proverifSetting contained ignoreTypes attacker keyCompromise simplifyProcess preciseActions
-syn keyword proverifSetting contained rejectChoiceTrueFalse rejectNoSimplif movenew maxDepth maxHyp
-syn keyword proverifSetting contained selFun stopTerm redundancyElim redundancyHypElim
+syn keyword proverifSetting contained ignoreTypes attacker keyCompromise privateCommOnPublicFreeNames simplifyProcess preciseActions
+syn keyword proverifSetting contained rejectChoiceTrueFalse rejectNoSimplif allowDiffPatterns movenew movelet maxDepth maxHyp
+syn keyword proverifSetting contained selFun stopTerm redundancyElim redundancyHypElim removeEventsForLemma inductionQueries inductionLemmas
+syn keyword proverifSetting contained saturationApplication verificationApplication preciseLetExpand ignoreAFewTimes nounifIgnoreAFewTimes nounifIgnoreNtimes
 syn keyword proverifSetting contained swapping interactiveSwapping predicatesImplementable traceDisplay
-syn keyword proverifSetting contained verboseClauses abbreviateClauses removeUselessClausesBeforeDisplay
-syn keyword proverifSetting contained verboseEq verboseTerm verboseRules verboseRedundant verboseCompleted
+syn keyword proverifSetting contained featureFuns featureNames featurePredicates featureEvents featureTables featureDepth featureWidth
+syn keyword proverifSetting contained verboseClauses verboseLemmas abbreviateClauses removeUselessClausesBeforeDisplay
+syn keyword proverifSetting contained verboseEq verboseTerm verboseRules verboseBase verboseRedundant verboseCompleted
 syn keyword proverifSetting contained eqInNames expandIfTermsToTerms expandSimplifyIfCst symbOrder
 syn keyword proverifSetting contained simplifyDerivation abbreviateDerivation explainDerivation reconstructTrace
 syn keyword proverifSetting contained unifyDerivation reconstructDerivation displayDerivation traceBacktracking
-syn keyword proverifSettingValue contained true false all none active passive approx strict
-syn keyword proverifSettingValue contained interactive short long check nocheck simple best beginOnly
-syn keyword proverifSettingValue contained TermMaxsize Term NounifsetMaxsize Nounifset explained
+syn keyword proverifSettingValue contained true false all none auto active passive approx strict full discard instantiate
+syn keyword proverifSettingValue contained interactive short long check nocheck simple best no beginOnly
+syn keyword proverifSettingValue contained TermMaxsize Term trueWithoutArgsInNames NounifsetMaxsize Nounifset explained
 syn region proverifMacro matchgroup=proverifDelimiter start=/{/ end=/}/ keepend contains=ALL
 
 syn keyword proverifType bitstring nat
