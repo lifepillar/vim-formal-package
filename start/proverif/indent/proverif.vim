@@ -85,7 +85,7 @@ fun! GetProverifIndent()
 
   " Indent when the previous line begins with certain keywords
   " and does not end with a dot.
-  if l:prev =~# '^\s*\%(equation\|equiv\|forall\|fun\|event\|process\|query\|reduc\)[^.]*$'
+  if l:prev =~# '^\s*\%(equation\|equiv\|forall\|fun\|process\|query\|reduc\|axiom\|lemma\|restriction\)[^.]*$'
     return l:prevind + s:shiftwidth()
   endif
 
