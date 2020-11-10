@@ -33,6 +33,7 @@ syn keyword proverifOptionValue contained block memberOptim
 syn keyword proverifOptionValue contained noneSat discardSat instantiateSat fullSat removeEvents keepEvents
 syn keyword proverifOptionValue contained noneVerif discardVerif instantiateVerif fullVerif
 syn keyword proverifOptionValue contained maxSubset proveAll noInduction keep precise
+syn keyword proverifOptionValue contained hypothesis conclusion induction inductionOn ignoreAFewTimes
 
 syn keyword proverifPredicate attacker ev evinj mess subterm
 
