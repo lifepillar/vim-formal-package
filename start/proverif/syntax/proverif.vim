@@ -11,11 +11,11 @@ syn sync minlines=100
 syn case match
 syn iskeyword @,48-57,192-255,_,'
 
-syn keyword proverifKeyword among block channel choice clauses const def diff do elimtrue else
+syn keyword proverifKeyword among axiom block channel choice clauses const def diff do elimtrue else
 syn keyword proverifKeyword equation equivalence event expand fail forall foreach free fun get
-syn keyword proverifKeyword if implementation in insert let letfun new noninterf not nounif
+syn keyword proverifKeyword if implementation in insert lemma let letfun new noninterf not nounif
 syn keyword proverifKeyword options or otherwise out param phase pred proba process proof
-syn keyword proverifKeyword public_vars putbegin query reduc secret suchthat sync table then
+syn keyword proverifKeyword public_vars putbegin query reduc restriction secret suchthat sync table then
 syn keyword proverifKeyword type weaksecret yield
 syn match   proverifKeyword "\<inj-event\>"
 
@@ -46,7 +46,7 @@ syn keyword proverifSettingValue contained interactive short long check nocheck 
 syn keyword proverifSettingValue contained TermMaxsize Term NounifsetMaxsize Nounifset explained
 syn region proverifMacro matchgroup=proverifDelimiter start=/{/ end=/}/ keepend contains=ALL
 
-syn keyword proverifType bitstring
+syn keyword proverifType bitstring nat
 
 syn keyword proverifTodo contained TODO FIXME XXX DEBUG NOTE
 syn region proverifComment matchgroup=proverifComment start=/(\*/ end=/\*)/ contains=proverifTodo keepend
