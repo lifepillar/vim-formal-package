@@ -194,6 +194,7 @@ syn keyword cryptoverifPredicate attacker ev evinj mess
 
 syn keyword cryptoverifTodo contained TODO FIXME XXX DEBUG NOTE
 syn region cryptoverifComment matchgroup=cryptoverifComment start=/(\*/ end=/\*)/ contains=cryptoverifTodo keepend
+syn region cryptoverifString start=+"+ end=+"+
 
 hi def link cryptoverifCommand      Statement
 hi def link cryptoverifComment      Comment
@@ -208,6 +209,7 @@ hi def link cryptoverifOptionValue  StorageClass
 hi def link cryptoverifPredicate    Function
 hi def link cryptoverifSetting      Debug
 hi def link cryptoverifSettingValue Constant
+hi def link cryptoverifString       String
 hi def link cryptoverifTodo         Todo
 hi def link cryptoverifType         Type
 
