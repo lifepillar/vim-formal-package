@@ -169,7 +169,7 @@ syn match   cryptoverifOptionValue contained /\<pv\k\+\>/
 
 syn keyword cryptoverifType bitstring bitstringbot bool
 
-syn region cryptoverifSettings matchgroup=cryptoverifKeyword start=/\<set\>/ end=/\./ contains=cryptoverifSetting,cryptoverifSettingValue,cryptoverifOperator keepend
+syn region cryptoverifSettings matchgroup=cryptoverifKeyword start=/\<set\>/ end=/[.;]/ contains=cryptoverifSetting,cryptoverifSettingValue,cryptoverifOperator keepend
 
 syn keyword cryptoverifSetting contained allowUndefinedVar autoAdvice noAdviceGlobalDepAnal autoMergeArrays
 syn keyword cryptoverifSetting contained autoMergeBranches autoExpand autoMove autoRemoveAssignFindCond
