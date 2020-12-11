@@ -13,10 +13,10 @@ syn iskeyword @,48-57,192-255,_,'
 
 syn keyword cryptoverifKeyword builtin channel collision const def defined do else eps_find
 syn keyword cryptoverifKeyword eps_rand equation equiv equivalence event event_abort expand find
-syn keyword cryptoverifKeyword forall foreach fun get if implementation in insert length
+syn keyword cryptoverifKeyword forall foreach fun get if implementation in inf insert length
 syn keyword cryptoverifKeyword let letfun max maxlength new newChannel newOracle orfind out param Pcoll1rand
 syn keyword cryptoverifKeyword Pcoll2rand proba process proof public_vars query query_equiv return run
-syn keyword cryptoverifKeyword secret suchthat table then time type yield
+syn keyword cryptoverifKeyword secret set special suchthat table then time type yield
 syn match   cryptoverifKeyword /\<inj-event\>/
 syn match   cryptoverifKeyword /\<independent-of\>/
 
@@ -64,9 +64,9 @@ syn keyword cryptoverifFunction uf_cma_corrupt_partial suf_cma suf_cma_corrupt
 
 syn keyword cryptoverifCommand auto crypto
 
-syn match   cryptoverifMacro /\<exp'_to_group\>/
+syn match   cryptoverifMacroDef /\<exp'_to_group\>/
 
-syn keyword cryptoverifConstant bottom
+syn keyword cryptoverifConstant bottom false true
 syn match cryptoverifConstant "\<0\>\|[.;]"
 
 syn match cryptoverifOperator "[:!=/*+-]"
@@ -104,7 +104,7 @@ syn match   cryptoverifSettingValue contained /\<pest\d\+\>/
 
 syn region cryptoverifProbEquiv matchgroup=cryptoverifOperator start=/<=(/ end=/)=>/ contains=cryptoverifProbFormula
 
-syn region cryptoverifMacro matchgroup=cryptoverifDelimiter start=/{/ end=/}/ keepend contains=ALL
+syn region cryptoverifMacro matchgroup=cryptoverifDelimiter start=/{/ end=/}/ keepend contains=ALLBUT,cryptoverifSetting,cryptoverifSettingValue
 
 syn keyword cryptoverifPredicate attacker ev evinj mess
 
