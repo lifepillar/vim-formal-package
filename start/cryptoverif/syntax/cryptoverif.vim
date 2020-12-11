@@ -16,7 +16,9 @@ syn keyword cryptoverifKeyword eps_rand equation equiv equivalence event event_a
 syn keyword cryptoverifKeyword forall foreach fun get if implementation in inf insert length
 syn keyword cryptoverifKeyword let letfun max maxlength new newChannel newOracle orfind out param Pcoll1rand
 syn keyword cryptoverifKeyword Pcoll2rand proba process proof public_vars query query_equiv return run
-syn keyword cryptoverifKeyword secret set special suchthat table then time type yield
+syn keyword cryptoverifKeyword secret
+" syn keyword cryptoverifKeyword set " See cryptoverifSettings
+syn keyword cryptoverifKeyword special suchthat table then time type yield
 syn match   cryptoverifKeyword /\<inj-event\>/
 syn match   cryptoverifKeyword /\<independent-of\>/
 
