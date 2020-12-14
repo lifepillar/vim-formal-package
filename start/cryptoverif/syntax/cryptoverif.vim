@@ -190,7 +190,7 @@ syn match   cryptoverifSettingValue contained /\<pest\d\+\>/
 
 syn region cryptoverifProbEquiv matchgroup=cryptoverifOperator start=/<=(/ end=/)=>/
 
-syn region cryptoverifMacroDef matchgroup=cryptoverifDelimiter start=/{/ end=/}/ keepend contains=ALLBUT,cryptoverifSetting,cryptoverifSettingValue
+syn region cryptoverifMacroDef matchgroup=cryptoverifDelimiter start=/{/ end=/}/ contains=ALLBUT,cryptoverifSetting,cryptoverifSettingValue
 
 syn keyword cryptoverifPredicate attacker ev evinj mess
 
