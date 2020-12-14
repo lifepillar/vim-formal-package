@@ -35,7 +35,7 @@ fun! s:is_comment(l)
 endf
 
 fun! s:is_macro(lnum)
-  return empty(synstack(a:lnum, 1)) ? 0 : (synIDattr(synstack(a:lnum, 1)[0], "name") == "cryptoverifMacro")
+  return empty(synstack(a:lnum, 1)) ? 0 : (synIDattr(synstack(a:lnum, 1)[0], "name") == "cryptoverifMacroDef")
 endf
 
 fun! s:reset_indent(lnum)
