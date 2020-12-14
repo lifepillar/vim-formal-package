@@ -74,7 +74,7 @@ fun! GetCryptoVerifIndent()
 
   " Strip comments
   let l:this = substitute(l:this, '(\*.\{-}\*)', '', 'g')
-  let l:prev = substitute(l:prev, '(\*\{-}\*)', '', 'g')
+  let l:prev = substitute(l:prev, '(\*.\{-}\*)', '', 'g')
 
   " Reset indentation after a line ending with a dot
   if l:prevind > 0 && l:prev =~# '\.\s*$'
