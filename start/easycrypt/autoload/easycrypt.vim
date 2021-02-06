@@ -130,7 +130,7 @@ function! s:callback(path, start_time, job, status) abort
 endfunction
 
 function! easycrypt#command()
-  return get(b:, 'easycrypt', get(g:, 'easycrypt', 'easycrypt'))
+  return get(b:, 'easycrypt', get(g:, 'easycrypt', 'eval $(opam env) && easycrypt'))
 endfunction
 
 " Accepts an optional path. If no argument is given, uses the path of the
