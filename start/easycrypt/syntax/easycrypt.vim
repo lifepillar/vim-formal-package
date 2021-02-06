@@ -20,24 +20,31 @@ syn keyword easycryptIdentifier admit admitted
 
 syn match easycryptDelimiter "[[\]\|(){}]"
 
+syn keyword easycryptConstant tt
 syn match easycryptConstant  "[.:,;]"
 syn match easycryptConstant  "\<_\>"
 syn keyword easycryptConstant true false
 
 " syn keyword easycryptFunction seq rnd skip
 
-syn match easycryptOperator "[=<>/\+^*|:&%-]"
-syn match easycryptOperator "`[=<>/\+^*|:&%-]`"
+syn match easycryptOperator "[=<>/\+^*|:&%-]\+"
+syn match easycryptOperator "`[=<>/\+^*|:&%-]\+`"
 syn match easycryptOperator "\\[A-z0-9_']\+"
+syn match easycryptOperator "!"
+syn match easycryptOperator "`|_|\|\[\]\|_\.\[_\]\|_\.\[_<-_\]"
+
+" easycryptAssignment *must* be after easycryptOperator (:h syn-priority)
+syn match easycryptAssignment "<[@$]"
 
 " syn keyword easycryptStatement smt
 
-syn keyword easycryptType unit
+syn keyword easycryptType bool distr int real unit
 
 syn keyword easycryptTodo contained TODO FIXME XXX DEBUG NOTE
 syn region easycryptComment matchgroup=easycryptComment start=/(\*/ end=/\*)/ contains=easycryptTodo keepend
 syn region easycryptString start=+"+ end=+"+
 
+hi def link easycryptAssignment   Operator
 hi def link easycryptCommand      Statement
 hi def link easycryptComment      Comment
 hi def link easycryptConstant     Constant
