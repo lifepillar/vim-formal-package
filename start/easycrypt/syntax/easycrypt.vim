@@ -20,7 +20,7 @@ syn keyword easycryptIdentifier admit admitted
 
 syn match easycryptDelimiter "[[\]\|(){}]"
 
-syn keyword easycryptConstant tt
+syn keyword easycryptConstant tt empty
 syn match easycryptConstant  "[.:,;]"
 syn match easycryptConstant  "\<_\>"
 syn keyword easycryptConstant true false
@@ -38,7 +38,7 @@ syn match easycryptAssignment "<[@$]"
 
 " syn keyword easycryptStatement smt
 
-syn keyword easycryptType bool distr int real unit
+syn keyword easycryptType bool distr fmap int real unit
 
 syn keyword easycryptTodo contained TODO FIXME XXX DEBUG NOTE
 syn region easycryptComment matchgroup=easycryptComment start=/(\*/ end=/\*)/ contains=easycryptTodo keepend
