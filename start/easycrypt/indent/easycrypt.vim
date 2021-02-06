@@ -68,13 +68,13 @@ fun! GetEasyCryptIndent()
   let l:this = substitute(l:this, '(\*.\{-}\*)', '', 'g')
   let l:prev = substitute(l:prev, '(\*.\{-}\*)', '', 'g')
 
-  " Unindent `else` and `qed.` at the start of a line.
-  if l:this =~# '^\s*\%(else\|proof\.\|qed\.\)'
+  " Unindent when there are some keywords at the start of a line.
+  if l:this =~# '^\s*\<\%(else\|proof\|qed\)\>'
     return l:prevind - s:shiftwidth()
   endif
 
   " Indent when the previous line ends with certain keywords or symbols
-  if l:prev =~# '\%(proof\.\|:\)\s*$'
+  if l:prev =~# '\%(\<proof\.\|\<with\>\|:\)\s*$'
     return l:prevind + s:shiftwidth()
   endif
 
@@ -96,5 +96,4 @@ fun! GetEasyCryptIndent()
 
   return l:prevind
 endf
-
 
