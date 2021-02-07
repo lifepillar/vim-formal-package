@@ -27,11 +27,9 @@ syn keyword easycryptConstant true false
 
 " syn keyword easycryptFunction seq rnd skip
 
-syn match easycryptOperator "[=<>/\+^*|:&%-]\+"
-syn match easycryptOperator "`[=<>/\+^*|:&%-]\+`"
+syn match easycryptOperator "`\=[=<>/\+^*|:&%-]\+`\="
 syn match easycryptOperator "\\[A-z0-9_']\+"
 syn match easycryptOperator "!"
-syn match easycryptOperator "`|_|\|\[\]\|_\.\[_\]\|_\.\[_<-_\]"
 
 " easycryptAssignment *must* be after easycryptOperator (:h syn-priority)
 syn match easycryptAssignment "<[@$]"
