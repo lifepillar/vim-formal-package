@@ -57,9 +57,9 @@ fun! GetProverifIndent()
     if l:prev =~# '^\s*(\*' && l:prev !~# '\*)\s*$'
       return l:prevind + (l:this =~ '^\s*\*' ? 1 : s:shiftwidth())
     endif
-    " Reset indentation after closing a comment, but only when it is 0 or 1
-    if l:prev =~# '^\s\=\*)'
-      return 0
+    " Otherwise, decrease indentation after a closed comment
+    if l:prev =~# '\*)\s*$'
+      return l:prevind - (l:prev =~# '^\s*\*' ? 1 : s:shiftwidth())
     endif
     return -1
   endif
@@ -79,7 +79,7 @@ fun! GetProverifIndent()
   endif
 
   " Indent when the previous line ends with certain keywords or symbols
-  if l:prev =~# '\%(\<else\|\<then\)\s*$'
+  if l:prev =~# '\%(\<else\|\<then\|=\)\s*$'
     return l:prevind + s:shiftwidth()
   endif
 

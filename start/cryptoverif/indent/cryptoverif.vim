@@ -41,7 +41,7 @@ endf
 fun! s:reset_indent(lnum)
   return (s:is_macro(v:lnum) ? s:shiftwidth() : 0)
 endf
- 
+
 fun! GetCryptoVerifIndent()
   let l:this = getline(v:lnum)
   let l:ind = indent(v:lnum)
@@ -65,9 +65,9 @@ fun! GetCryptoVerifIndent()
     if l:prev =~# '^\s*(\*' && l:prev !~# '\*)\s*$'
       return l:prevind + (l:this =~ '^\s*\*' ? 1 : s:shiftwidth())
     endif
-    " Reset indentation after closing a comment, but only when it is 0 or 1
-    if l:prev =~# '^\s\=\*)'
-      return 0
+    " Otherwise, decrease indentation after a closed comment
+    if l:prev =~# '\*)\s*$'
+      return l:prevind - (l:prev =~# '^\s*\*' ? 1 : s:shiftwidth())
     endif
     return -1
   endif
