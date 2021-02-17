@@ -54,7 +54,7 @@ syn keyword proverifSettingValue contained interactive short long check nocheck 
 syn keyword proverifSettingValue contained TermMaxsize Term trueWithoutArgsInNames NounifsetMaxsize Nounifset explained
 syn region proverifMacro matchgroup=proverifDelimiter start=/{/ end=/}/ keepend contains=ALL
 
-syn keyword proverifType bitstring nat
+syn keyword proverifType bitstring bool nat
 
 syn keyword proverifTodo contained TODO FIXME XXX DEBUG NOTE
 syn region proverifComment matchgroup=proverifComment start=/(\*/ end=/\*)/ contains=proverifTodo keepend
