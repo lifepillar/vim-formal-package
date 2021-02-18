@@ -24,9 +24,9 @@ else
   endf
 endif
 
-if exists("*GetVerifpalIndent")
-  finish
-endif
+" if exists("*GetVerifpalIndent")
+"   finish
+" endif
 
 fun! s:is_comment(l)
   return synIDattr(
@@ -37,6 +37,7 @@ fun! s:is_comment(l)
 endf
 
 fun! GetVerifpalIndent()
+  let l:this = substitute(getline(v:lnum), '//.*$', '', '')
   let l:ind = indent(v:lnum)
 
   " Get previous non-blank line
@@ -45,18 +46,17 @@ fun! GetVerifpalIndent()
     return l:ind
   endif
 
+  let l:prev = substitute(getline(l:prevlnum), '//.*$', '', '')
   let l:prevind = indent(l:prevlnum)
 
-  if getline(v:lnum) =~# '^\s*]'
-    return l:prevind - s:shiftwidth()
-  endif
-
-  if getline(l:prevlnum) =~# '^\s*\S.*]$'
-    return l:prevind - s:shiftwidth()
-  endif
-
-  if getline(l:prevlnum) =~# '[\s*$'
+  " Indent when the previous line has an unmatched open bracket
+  if l:prev =~# '\[[^\]]*$'
     return l:prevind + s:shiftwidth()
+  endif
+
+  " Decrease indentation when the current line has an unmatched closed bracket
+  if l:this =~# '^[^\[]*\]'
+    return l:prevind - s:shiftwidth()
   endif
 
   return l:prevind
