@@ -13,7 +13,7 @@ let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . '|' : '') .
 
 setlocal autoindent
 setlocal comments=://
-setlocal commentstring=(*%s*)
+setlocal commentstring=//%s
 setlocal formatoptions=croqjl
 setlocal suffixesadd=.vp
 setlocal omnifunc=syntaxcomplete#Complete
