@@ -9,7 +9,7 @@ endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetProverifIndent()
-setlocal indentkeys+==else,0)
+setlocal indentkeys+==else,=otherwise,0)
 setlocal nolisp
 setlocal nosmartindent
 
@@ -73,8 +73,8 @@ fun! GetProverifIndent()
     return 0
   endif
 
-  " Unindent `else` at the start of a line.
-  if l:this =~# '^\s*else'
+  " Unindent `else` or `otherwise` at the start of a line.
+  if l:this =~# '^\s*\%(else\|otherwise\)'
     return l:prevind - s:shiftwidth()
   endif
 
@@ -85,7 +85,7 @@ fun! GetProverifIndent()
 
   " Indent when the previous line begins with certain keywords
   " and does not end with a dot.
-  if l:prev =~# '^\s*\%(equation\|equiv\|forall\|fun\|process\|query\|reduc\|axiom\|lemma\|restriction\)[^.]*$'
+  if l:prev =~# '^\s*\%(equation\|equiv\|forall\|fun\|process\|query\|reduc\|otherwise\|axiom\|lemma\|restriction\)[^.]*$'
     return l:prevind + s:shiftwidth()
   endif
 
