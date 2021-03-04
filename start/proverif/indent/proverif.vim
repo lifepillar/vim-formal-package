@@ -57,6 +57,10 @@ fun! GetProverifIndent()
     if l:prev =~# '^\s*(\*' && l:prev !~# '\*)\s*$'
       return l:prevind + (l:this =~ '^\s*\*' ? 1 : s:shiftwidth())
     endif
+    " Keep the indentation when continuing a comment
+    if l:prev =~# '^\s*\*[^)]'
+      return l:prevind
+    endif
     " Otherwise, decrease indentation after a closed comment
     if l:prev =~# '\*)\s*$'
       return l:prevind - (l:prev =~# '^\s*\*' ? 1 : s:shiftwidth())
