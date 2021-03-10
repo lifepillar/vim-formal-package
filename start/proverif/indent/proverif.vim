@@ -61,10 +61,10 @@ fun! GetProverifIndent()
   let l:prevind = indent(l:prevlnum)
 
   if l:prev =~# '(\*'
-    Indent after opening a multi-line comment
+    " Indent after opening a multi-line comment
     return l:this =~ '^\s*\*' ? l:prevind + 1 : -1
   elseif l:prev =~# '\*)'
-    Decrease indentation after a closed comment
+    " Decrease indentation after a closed comment
     return (l:prev =~# '^\s*\*' ? l:prevind - 1 : s:find_comment_pair(l:prevlnum))
   elseif s:is_comment(l:prevlnum) && getline(l:prevlnum) ==# l:prev " Prev. line is inside comment
     if l:this =~# '^\s*\*)'
