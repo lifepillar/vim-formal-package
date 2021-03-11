@@ -20,7 +20,7 @@ syn match   spthyKeyword "\<in\>"
 syn keyword spthyQuantifier All Ex
 syn match   spthyQuantifier "∀\|∃"
 syn keyword spthyConstant F T
-sym match   spthyConstant "⊥\|⊤"
+syn match   spthyConstant "⊥\|⊤"
 syn keyword spthyOperator not
 syn match   spthyOperator "▶[₀₁₂₃₄₅₆₇₈₉]"
 syn match   spthyOperator "\%(¬\|∧\|∨\|∥\|⇔\|⇒\)"
