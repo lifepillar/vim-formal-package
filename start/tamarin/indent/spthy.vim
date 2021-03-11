@@ -10,7 +10,7 @@ let b:did_indent = 1
 
 setlocal indentexpr=GetTamarinIndent()
 setlocal indentkeys=o,O
-setlocal indentkeys+=rule,=begin,=end,=lemma,=let,=in,=builtins,=functions,=equations
+setlocal indentkeys+==rule,=begin,=end,=lemma,=let,=in,=builtins,=functions,=equations
 setlocal indentkeys+=0=-->,0=--[,0\",0)
 setlocal nolisp
 setlocal nosmartindent
