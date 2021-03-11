@@ -101,7 +101,7 @@ fun! GetTamarinIndent()
   elseif l:this =~# '^\s*\]'
     return s:find_pair('\[', '', '\]')
   elseif l:this =~# '^\s*"'
-    return getline(prevnonblank(v:lnum - 1)) =~# '^\s*\%(exists-trace\>\)\|\%(:\s*$\)'
+    return getline(s:prevnoncomment(v:lnum - 1)) =~# '^\s*\%(exists-trace\|all-traces\>\)\|\%(:\s*$\)'
           \ ? l:prevind + s:shiftwidth()
           \ : s:find_pair('"', '', '"')
   elseif l:this =~# '\<\(%begin\|end\)\>'
