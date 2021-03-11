@@ -12,12 +12,18 @@ syn case match
 syn iskeyword @,48-57,192-255,_
 
 syn keyword spthyKeyword _restrict account accounts as delete else event for if insert lock lookup new otherwise parties then unlock
+syn keyword spthyKeyword by case contradiction induction last next qed simplify solve sorry
+syn keyword spthyConstant SOLVED
 " This is defined with match not to take precedence over in():
 syn match   spthyKeyword "\<in\>"
 
 syn keyword spthyQuantifier All Ex
+syn match   spthyQuantifier "∀\|∃"
 syn keyword spthyConstant F T
+sym match   spthyConstant "⊥\|⊤"
 syn keyword spthyOperator not
+syn match   spthyOperator "▶[₀₁₂₃₄₅₆₇₈₉]"
+syn match   spthyOperator "\%(¬\|∧\|∨\|∥\|⇔\|⇒\)"
 
 syn match spthyIsFunction /\<\k\+\ze(/ contains=spthyFunction
 
@@ -52,7 +58,7 @@ syn keyword spthyFact Fr In Out
 
 syn region  spthyLiteral matchgroup=spthyLiteral start="\~\='" end="'"
 
-syn keyword spthyBuiltin fr getMessage hashing lts multiset pair pb senc sk xor
+syn keyword spthyBuiltin fr getMessage hashing lts multiset pair pb senc sk
 syn keyword spthyBuiltin multiset signing
 syn match   spthyBuiltin "\<\%(asymmetric-encryption\|bilinear-pairing\|diffie-hellman\|reliable-channel\|revealing-signing\|symmetric-encryption\|translation-progress\)\>"
 
