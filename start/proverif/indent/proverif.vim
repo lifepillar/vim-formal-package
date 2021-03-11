@@ -45,6 +45,10 @@ fun! s:find_comment_pair(l)
   return indent(searchpair('(\*', '', '\*)', 'bWn'))
 endf
 
+fun! s:reset_indent(lnum)
+  return (s:is_macro(v:lnum) ? s:shiftwidth() : 0)
+endf
+
 if exists("*GetProverifIndent")
   finish
 endif
@@ -78,7 +82,7 @@ fun! GetProverifIndent()
 
   " Reset indentation after a line ending with a dot
   if l:prevind > 0 && l:prev =~# '\.\s*$'
-    return s:is_macro(v:lnum) ? s:shiftwidth() : 0
+    return s:reset_indent(v:lnum)
   endif
 
   if l:this =~# '\<else\>'
