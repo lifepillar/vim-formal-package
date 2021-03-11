@@ -9,7 +9,7 @@ endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetProverifIndent()
-setlocal indentkeys+==else,=otherwise,0=*),0),0],0}
+setlocal indentkeys=o,O,=else,=otherwise,0=*),0),0],0}
 setlocal nolisp
 setlocal nosmartindent
 
