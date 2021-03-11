@@ -15,7 +15,7 @@ setlocal autoindent
 setlocal comments=sr:/*,mb:*,ex:*/
 setlocal commentstring=//%s
 setlocal formatoptions=croqjl
-setlocal suffixesadd=.spthy
+setlocal suffixesadd=.sapic,.spthy
 setlocal omnifunc=syntaxcomplete#Complete
 
 " compiler tamarin
