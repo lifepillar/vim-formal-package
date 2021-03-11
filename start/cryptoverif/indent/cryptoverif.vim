@@ -9,7 +9,7 @@ endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetCryptoVerifIndent()
-setlocal indentkeys+==else,0)
+setlocal indentkeys=o,O,=else,0=*),0),0],0}
 setlocal nolisp
 setlocal nosmartindent
 
