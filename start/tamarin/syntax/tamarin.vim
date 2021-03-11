@@ -101,7 +101,7 @@ hi def link spthyNumber        Number
 hi def link spthyOperator      Operator
 hi def link spthyPubName       Identifier
 hi def link spthyQuantifier    Define
-hi def link spthyStatement     Statement
+hi def link spthyStatement     PreProc
 hi def link spthyTemporal      Special
 hi def link spthyTodo          Todo
 
