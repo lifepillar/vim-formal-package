@@ -31,7 +31,7 @@ syn match   spthyStatement "[a-zA-Z\-_]\@<!\d\+\."
 syn keyword spthyKeyword account accounts as delete else event for if in in insert lock lookup new otherwise out parties then then unlock
 syn keyword spthyLogicKeyword F T All Ex not
 
-syn region  spthyLiteral matchgroup=spthyDelim start="'" end="'"
+syn region  spthyLiteral matchgroup=spthyDelimiter start="'" end="'"
 
 syn keyword spthyAnnot contained use_induction sources reuse hide_lemma left right
 syn region spthyAnnotLemma matchgroup=spthyKeyword start="\<lemma\>" skip="(\s\+\w\+\s*\[|\])" end=":" matchgroup=NONE contains=spthyAnnot
