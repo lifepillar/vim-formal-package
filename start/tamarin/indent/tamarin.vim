@@ -17,6 +17,10 @@ setlocal nosmartindent
 
 let b:undo_indent = "setl indentexpr< indentkeys< lisp< smartindent<"
 
+" if exists("*GetTamarinIndent")
+"   finish
+" endif
+
 if exists('*shiftwidth')
   fun! s:shiftwidth()
     return shiftwidth()
@@ -44,8 +48,7 @@ endf
 
 fun! s:find_comment_start(l)
   call cursor(a:l, 1)
-  call search('\*/', 'Wc')
-  return searchpairpos('/\*', '', '\*/', 'bWn')[1]
+  return searchpairpos('/\*', '\*', '\*/', 'bWn')[1] - 1
 endf
 
 fun! s:count(l, expr)
@@ -69,13 +72,7 @@ fun! s:prevnoncomment(l)
    return l:prevlnum
 endf
 
-" if exists("*GetTamarinIndent")
-"   finish
-" endif
-
 fun! GetTamarinIndent()
-  let l:this = substitute(getline(v:lnum), '\%(\/\*.\{-}\*\/\)\|\/\/.*$', '', 'g')
-
   if s:is_comment(v:lnum)
     return s:find_comment_start(v:lnum)
   endif
@@ -87,6 +84,7 @@ fun! GetTamarinIndent()
   endif
 
   let l:prevind = indent(l:prevlnum)
+  let l:this = substitute(getline(v:lnum), '\%(\/\*.\{-}\*\/\)\|\/\/.*$', '', 'g')
 
   if l:this =~# '^\s*\<\%(lemma\|rule\|functions\|equations\|restriction\)\>'
     return s:shiftwidth()
