@@ -121,7 +121,7 @@ fun! GetTamarinIndent()
     return l:prevind + s:shiftwidth() + (l:this =~# '\<let\>' ? 0 : s:shiftwidth())
   endif
 
-  if l:prev =~# '[.:=]\s*$'
+  if l:prev =~# '[.,:=]\s*$'
     return l:prevind + s:shiftwidth()
   endif
 
