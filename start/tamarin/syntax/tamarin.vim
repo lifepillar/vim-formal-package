@@ -70,7 +70,7 @@ syn keyword spthyStatement assertions axiom begin builtins default_rules enable 
 syn match   spthyStatement "\<\%(all-traces\|anb-proto\|exists-trace\)\>"
 syn match   spthyStatement "[a-zA-Z\-_]\@<!\d\+\."
 
-syn keyword spthyAttr contained no_precomp private
+syn keyword spthyAttr contained no_precomp private color colour
 syn keyword spthyAnnot contained diff_reuse hide_lemma left reuse right sources use_induction
 syn region  spthyBracket matchgroup=spthyDelimiter start="\[" end="\]" contains=ALL
 
