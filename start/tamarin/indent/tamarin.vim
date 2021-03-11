@@ -73,14 +73,16 @@ fun! s:prevnoncomment(l)
 endf
 
 fun! GetTamarinIndent()
-  if s:is_comment(v:lnum)
-    return s:find_comment_start(v:lnum)
-  endif
-
   let l:prevlnum = s:prevnoncomment(v:lnum - 1)
 
   if l:prevlnum <= 0
     return -1
+  endif
+
+  if s:is_comment(v:lnum)
+    return getline(v:lnum) =~# '^\s*/\*'
+          \ ? indent(l:prevlnum)
+          \ : s:find_comment_start(v:lnum)
   endif
 
   let l:prevind = indent(l:prevlnum)
