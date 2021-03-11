@@ -92,7 +92,7 @@ hi def link spthyDelimiter     Delimiter
 hi def link spthyFact          Macro
 hi def link spthyFactSym       Delimiter
 hi def link spthyFormalComment Comment
-hi def link spthyFreshName         Identifier
+hi def link spthyFreshName     Identifier
 hi def link spthyFunction      Function
 hi def link spthyKeyword       Keyword
 hi def link spthyLineComment   Comment
