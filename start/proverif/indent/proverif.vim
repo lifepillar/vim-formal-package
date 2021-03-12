@@ -81,6 +81,18 @@ fun! GetProverifIndent()
     return s:reset_indent(v:lnum)
   endif
 
+  " Match indentation of `else` at the start of a line with previous
+  " expression. For instance:
+  "
+  "     if 1 then
+  "       ...
+  "     else (* matches if *)
+  "
+  "     if 1 then
+  "       let x = ... in
+  "       ...
+  "       else (* matches let *)
+  "
   if l:this =~# '\<else\>'
     return l:prev =~# '^\s*)\s*$'
           \ ? l:prevind - s:shiftwidth()
@@ -95,18 +107,6 @@ fun! GetProverifIndent()
     return s:find_pair('{', '', '}')
   endif
 
-  " Match indentation of `else` at the start of a line with previous
-  " expression. For instance:
-  "
-  "     if 1 then
-  "       ...
-  "     else (* matches if *)
-  "
-  "     if 1 then
-  "       let x = ... in
-  "       ...
-  "       else (* matches let *)
-  "
   " Indent when the previous line ends with certain keywords or symbols
   if l:prev =~# '\%(\<else\|\<then\|=\)\s*$'
     return l:prevind + s:shiftwidth()
