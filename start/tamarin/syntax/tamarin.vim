@@ -50,16 +50,15 @@ syn match   spthyOperator "⊕"
 " reliable-channel
 syn keyword spthyFunction contained in out
 " Other
-syn keyword spthyFunction contained exp fst mult mun snd
+syn keyword spthyFunction contained exp fst mult mun pair snd
 syn keyword spthyConstant one
 syn match   spthyNumber "\<\d\+\>"
 
-syn keyword spthyFact Fr In Out
+syn keyword spthyFact Fr In Out K
 
 syn region  spthyLiteral matchgroup=spthyLiteral start="\~\='" end="'"
 
-syn keyword spthyBuiltin fr getMessage hashing lts multiset pair pb senc sk
-syn keyword spthyBuiltin multiset signing
+syn keyword spthyBuiltin hashing multiset signing
 syn match   spthyBuiltin "\<\%(asymmetric-encryption\|bilinear-pairing\|diffie-hellman\|reliable-channel\|revealing-signing\|symmetric-encryption\|translation-progress\)\>"
 
 syn match   spthyDelimiter /[:."\[\]{}]/
