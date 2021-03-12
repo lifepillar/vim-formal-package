@@ -13,13 +13,20 @@ syn iskeyword @,48-57,192-255,_
 
 syn keyword spthyKeyword _restrict account accounts as delete else event for if insert lock lookup new otherwise parties then unlock
 syn keyword spthyKeyword by case contradiction induction last next qed simplify solve sorry
-syn keyword spthyConstant SOLVED
 " This is defined with match not to take precedence over in():
 syn match   spthyKeyword "\<in\>"
+
+syn keyword spthyStatement assertions axiom begin builtins default_rules enable end equations functions heuristic lemma let modulo options predicate predicates property protocol restriction rule section subsection text theory verdictfunction
+syn match   spthyStatement "\<\%(all-traces\|anb-proto\|exists-trace\)\>"
+
+syn keyword spthyAttr    contained no_precomp private color colour
+syn keyword spthyAnnot   contained diff_reuse hide_lemma left reuse right sources use_induction
+syn region  spthyBracket matchgroup=spthyDelimiter start="\[" end="\]" contains=ALL
 
 syn keyword spthyQuantifier All Ex
 syn match   spthyQuantifier "∀\|∃"
 syn keyword spthyConstant F T
+syn keyword spthyConstant SOLVED
 syn match   spthyConstant "⊥\|⊤"
 syn keyword spthyOperator not
 syn match   spthyOperator "▶[₀₁₂₃₄₅₆₇₈₉]"
@@ -62,21 +69,14 @@ syn keyword spthyBuiltin hashing multiset signing
 syn match   spthyBuiltin "\<\%(asymmetric-encryption\|bilinear-pairing\|diffie-hellman\|reliable-channel\|revealing-signing\|symmetric-encryption\|translation-progress\)\>"
 
 syn match   spthyDelimiter /[:."\[\]{}]/
-syn match   spthyOperator  "[=*^@|&<!>]\|:>\|<:\|--|\|>+>\|>->\|->\|<-\|==>\|<=>\|\~\~>"
-syn region  spthyFormalComment matchgroup=spthyDelimiter start="{\*" end="\*}" contains=spthyTodo
+syn match   spthyOperator  "[=@|&<!>]\|:>\|<:\|--|\|>+>\|>->\|->\|<-\|==>\|<=>\|\~\~>"
+syn region  spthyFormalComment matchgroup=spthyStatement start="{\*" end="\*}" contains=spthyTodo
 
 syn match   spthyFactSym   "-->\|--\[\|\]->"
 
 syn match   spthyFreshName "\~\a\k*\>"
 syn match   spthyPubName   "\$\a\k*\>"
 syn match   spthyTemporal  "#\a\k*\>"
-
-syn keyword spthyStatement assertions axiom begin builtins default_rules enable end equations functions heuristic lemma let modulo options predicate predicates property protocol restriction rule section subsection text theory verdictfunction
-syn match   spthyStatement "\<\%(all-traces\|anb-proto\|exists-trace\)\>"
-
-syn keyword spthyAttr contained no_precomp private color colour
-syn keyword spthyAnnot contained diff_reuse hide_lemma left reuse right sources use_induction
-syn region  spthyBracket matchgroup=spthyDelimiter start="\[" end="\]" contains=ALL
 
 syn keyword spthyTodo contained TODO FIXME XXX
 syn region  spthyComment start="/\*"  end="\*/" contains=spthyTodo
