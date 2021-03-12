@@ -15,11 +15,14 @@ setlocal nosmartindent
 
 let b:undo_indent = "setl indentkeys< indentexpr< lisp< smartindent<"
 
+if exists("*GetCryptoVerifIndent")
+  finish
+endif
+
 if exists('*shiftwidth')
   fun! s:shiftwidth()
     return shiftwidth()
   endf
-
 else
   fun! s:shiftwidth()
     return &sw
@@ -30,8 +33,8 @@ fun! s:is_comment(l)
   return synIDattr(synID(a:l, match(getline(a:l), '\S') + 1, 1), "name") =~# "Comment"
 endf
 
-fun! s:is_macro(lnum)
-  return empty(synstack(a:lnum, 1)) ? 0 : (synIDattr(synstack(a:lnum, 1)[0], "name") == "cryptoverifMacroDef")
+fun! s:is_macro(l)
+  return empty(synstack(a:l, 1)) ? 0 : synIDattr(synstack(a:l, 1)[0], "name") =~# "Macro"
 endf
 
 fun! s:find_pair(pstart, pmid, pend)
@@ -40,22 +43,30 @@ fun! s:find_pair(pstart, pmid, pend)
   return indent(searchpair(a:pstart, a:pmid, a:pend, 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string\\|comment"'))
 endf
 
-fun! s:find_comment_pair(l)
+fun! s:find_comment_start(l)
   call cursor(a:l, 1)
-  call search('\*)', 'Wc')
-  return indent(searchpair('(\*', '', '\*)', 'bWn'))
+  return searchpairpos('(\*', '', '\*)', 'bWn')[1]
 endf
 
 fun! s:reset_indent(lnum)
   return (s:is_macro(v:lnum) ? s:shiftwidth() : 0)
 endf
 
-if exists("*GetCryptoVerifIndent")
-  finish
-endif
+fun! s:prevnoncomment(l)
+  let l:prevlnum = prevnonblank(a:l)
+  while l:prevlnum > 0 && s:is_comment(l:prevlnum)
+    let l:prevlnum = prevnonblank(l:prevlnum - 1)
+  endwhile
+  return l:prevlnum
+endf
 
 fun! GetCryptoVerifIndent()
-  let l:prevlnum = prevnonblank(v:lnum - 1)
+  if s:is_comment(v:lnum) && getline(v:lnum) !~# '^\s*(\*'
+    " Continuation of a comment
+    return s:find_comment_start(v:lnum)
+  endif
+
+  let l:prevlnum = s:prevnoncomment(v:lnum - 1)
 
   if l:prevlnum <= 0
     return l:ind
@@ -65,34 +76,16 @@ fun! GetCryptoVerifIndent()
   let l:prev = substitute(getline(l:prevlnum), '(\*.\{-}\*)', '', 'g')
   let l:prevind = indent(l:prevlnum)
 
-  if l:prev =~# '(\*'
-    " Indent after opening a multi-line comment
-    return l:this =~ '^\s*\*' ? l:prevind + 1 : -1
-  elseif l:prev =~# '\*)'
-    " Decrease indentation after a closed comment
-    return (l:prev =~# '^\s*\*' ? l:prevind - 1 : s:find_comment_pair(l:prevlnum))
-  elseif s:is_comment(l:prevlnum) && getline(l:prevlnum) ==# l:prev " Prev. line is inside comment
-    if l:this =~# '^\s*\*)'
-      return s:find_comment_pair(v:lnum) + 1
-    elseif l:prev =~# '^\s*\*'
-      return l:prevind
-    else
-      return -1 " Do not touch indentation inside a multiline comment
-    endif
-  endif
-
-  " Reset indentation after a line ending with a dot
+  " Always reset indentation after a line ending with a dot
   if l:prevind > 0 && l:prev =~# '\.\s*$'
     return s:reset_indent(v:lnum)
   endif
 
-  " Unindent `else` at the start of a line.
-  if l:this =~# '^\s*else'
-    return l:prevind - s:shiftwidth()
-  endif
-
-  " Align a closed parenthesis with a matching open parenthesis.
-  if l:this =~# '^\s*)'
+  if l:this =~# '\<else\>'
+    return l:prev =~# '^\s*)\s*$'
+          \ ? l:prevind - s:shiftwidth()
+          \ : s:find_pair('\<in\s*\%((\*.*\)\=$\|\<then\>', '', '\<else\>')
+  elseif l:this =~# '^\s*)'
     return s:find_pair('(', '', ')')
   elseif l:this =~# '^\s*\]'
     return s:find_pair('\[', '', '\]')
@@ -101,18 +94,12 @@ fun! GetCryptoVerifIndent()
   endif
 
   " Indent when the previous line ends with certain keywords or symbols
-  if l:prev =~# '\%(=\|\<else\|\<then\)\s*$'
+  if l:prev =~# '\%(\<else\|\<then\|=\)\s*$'
     return l:prevind + s:shiftwidth()
-  endif
-
-  " Indent when the previous line begins with certain keywords
-  " and does not end with a dot.
-  if l:prev =~# '^\s*\%(collision\|equation\|equiv\|forall\|fun\|\<query\>.*event\>\|process\|query\|reduc\)[^.]*$'
+  elseif l:prev =~# '^\s*\%(collision\|equation\|equiv\|forall\|fun\|\<query\>.*event\>\|process\|query\|reduc\)[^.]*$'
     return l:prevind + s:shiftwidth()
-  endif
-
-  " Indent lines with an unmatched open parenthesis.
-  if l:prev =~# '\%(([^)]*\|\[[^\]]*\|{[^}]*\)$'
+  elseif l:prev =~# '\%(([^)]*\|\[[^\]]*\|{[^}]*\)$'
+    " Indent lines with an unmatched open parenthesis
     return l:prevind + s:shiftwidth()
   endif
 
