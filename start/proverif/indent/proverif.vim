@@ -48,6 +48,10 @@ fun! s:find_comment_start(l)
   return searchpairpos('(\*', '', '\*)', 'bWn')[1]
 endf
 
+fun! s:reset_indent(lnum)
+  return (s:is_macro(v:lnum) ? s:shiftwidth() : 0)
+endf
+
 fun! s:prevnoncomment(l)
    let l:prevlnum = prevnonblank(a:l)
    while l:prevlnum > 0 && s:is_comment(l:prevlnum)
