@@ -29,6 +29,10 @@ else
   endf
 endif
 
+fun! s:is_comment(l)
+  return synIDattr(synID(a:l, match(getline(a:l), '\S') + 1, 1), "name") =~# "Comment"
+endf
+
 fun! s:is_macro(l)
   return empty(synstack(a:l, 1)) ? 0 : synIDattr(synstack(a:l, 1)[0], "name") =~# "Macro"
 endf
