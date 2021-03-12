@@ -62,14 +62,14 @@ syn keyword spthyBuiltin hashing multiset signing
 syn match   spthyBuiltin "\<\%(asymmetric-encryption\|bilinear-pairing\|diffie-hellman\|reliable-channel\|revealing-signing\|symmetric-encryption\|translation-progress\)\>"
 
 syn match   spthyDelimiter /[:."\[\]{}]/
-syn match   spthyOperator "[=*^@|&<!>]\|:>\|<:\|--|\|>+>\|>->\|->\|<-\|==>\|<=>\|\~\~>"
+syn match   spthyOperator  "[=*^@|&<!>]\|:>\|<:\|--|\|>+>\|>->\|->\|<-\|==>\|<=>\|\~\~>"
 syn region  spthyFormalComment matchgroup=spthyDelimiter start="{\*" end="\*}" contains=spthyTodo
 
-syn match   spthyFactSym "-->\|--\[\|\]->"
+syn match   spthyFactSym   "-->\|--\[\|\]->"
 
-syn match spthyFreshName "\~\a\k*\>"
-syn match spthyPubName "\$\a\k*\>"
-syn match spthyTemporal "#\a\k*\>"
+syn match   spthyFreshName "\~\a\k*\>"
+syn match   spthyPubName   "\$\a\k*\>"
+syn match   spthyTemporal  "#\a\k*\>"
 
 syn keyword spthyStatement assertions axiom begin builtins default_rules enable end equations functions heuristic lemma let modulo options predicate predicates property protocol restriction rule section subsection text theory verdictfunction
 syn match   spthyStatement "\<\%(all-traces\|anb-proto\|exists-trace\)\>"
