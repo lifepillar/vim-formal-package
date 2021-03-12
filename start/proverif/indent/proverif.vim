@@ -53,11 +53,11 @@ fun! s:reset_indent(lnum)
 endf
 
 fun! s:prevnoncomment(l)
-   let l:prevlnum = prevnonblank(a:l)
-   while l:prevlnum > 0 && s:is_comment(l:prevlnum)
-      let l:prevlnum = prevnonblank(l:prevlnum - 1)
-   endwhile
-   return l:prevlnum
+  let l:prevlnum = prevnonblank(a:l)
+  while l:prevlnum > 0 && s:is_comment(l:prevlnum)
+    let l:prevlnum = prevnonblank(l:prevlnum - 1)
+  endwhile
+  return l:prevlnum
 endf
 
 fun! GetProverifIndent()
