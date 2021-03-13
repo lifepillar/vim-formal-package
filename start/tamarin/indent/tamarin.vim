@@ -73,9 +73,10 @@ fun! s:prevnoncomment(l)
 endf
 
 fun! GetTamarinIndent()
-  if s:is_comment(v:lnum) && getline(v:lnum) !~# '^\s*/\*'
-    " Continuation of a comment
-    return s:find_comment_start(v:lnum)
+  if s:is_comment(v:lnum)
+    return getline(v:lnum) =~# '^\s*/\*'
+          \ ? indent(s:prevnoncomment(v:lnum - 1))
+          \ : s:find_comment_start(v:lnum)
   endif
 
   let l:prevlnum = s:prevnoncomment(v:lnum - 1)
@@ -91,10 +92,8 @@ fun! GetTamarinIndent()
     return s:shiftwidth()
   elseif l:this =~# '^\s*--[>\[]'
     return l:prevind - s:shiftwidth()
-  elseif l:this =~# '\<in\>\%([^(]\|$\)'
-    return (l:this =~# '\s*let\>'
-          \ ? l:prevind
-          \ : s:find_pair('\<let\>', '', '\<in\>'))
+  elseif l:this =~# '^\s*in\s*$'
+    return s:find_pair('\<let\>', '', '\<in\>')
   elseif l:this =~# '^\s*)'
     return s:find_pair('(', '', ')')
   elseif l:this =~# '^\s*\]'
@@ -109,7 +108,9 @@ fun! GetTamarinIndent()
 
   let l:prev = substitute(getline(l:prevlnum), '\/\*.\{-}\*\/\|\/\/.*$', '', 'g')
 
-  if l:prev =~# '^\s*\<\%(begin\|let\|in\%([^(]\|$\)\)\>'
+  if l:prev =~# '^\s*\<\%(begin\|let\)\>'
+    return l:prevind + s:shiftwidth()
+  elseif l:prev =~# '^\s*in\s*$'
     return l:prevind + s:shiftwidth()
   elseif l:prev =~# 'rule.*:\s*\%(/\*.*\)\=$'
     return l:prevind + s:shiftwidth() + (l:this =~# '\<let\>' ? 0 : s:shiftwidth())
