@@ -52,16 +52,7 @@ fun! s:find_comment_start(l)
 endf
 
 fun! s:count(l, expr)
-  let l:c = 0
-  let l:p = -1
-  while 1
-    let l:p = match(getline(a:l), a:expr, l:p + 1)
-    if l:p == -1
-      break
-    endif
-    let l:c += 1
-  endwhile
-  return l:c
+  return str2nr(matchstr(execute(a:l .. 's/' .. a:expr .. '//egn'), '\d\+'))
 endf
 
 fun! s:prevnoncomment(l)
