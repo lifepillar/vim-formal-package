@@ -42,7 +42,6 @@ endf
 
 fun! s:find_pair(pstart, pmid, pend)
   call cursor(v:lnum, 1)
-  call search(a:pend, 'Wc')
   return indent(searchpair(a:pstart, a:pmid, a:pend, 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string\\|comment"'))
 endf
 
