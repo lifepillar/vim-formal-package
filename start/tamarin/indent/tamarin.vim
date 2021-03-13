@@ -110,7 +110,6 @@ fun! GetTamarinIndent()
   elseif l:prev =~# '^\s*\%(--[>\[]\|"\)'
     return l:prevind + s:shiftwidth()
   elseif s:count(l:prevlnum, '(') > s:count(l:prevlnum, ')')
-    " Indent lines with an unmatched open parenthesis
     return l:prevind + s:shiftwidth()
   elseif s:count(l:prevlnum, '\[') > s:count(l:prevlnum, '\]')
     return l:prevind + s:shiftwidth()
