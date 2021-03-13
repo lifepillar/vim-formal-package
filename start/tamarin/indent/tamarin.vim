@@ -17,9 +17,9 @@ setlocal nosmartindent
 
 let b:undo_indent = "setl indentexpr< indentkeys< lisp< smartindent<"
 
-if exists("*GetTamarinIndent")
-  finish
-endif
+" if exists("*GetTamarinIndent")
+"   finish
+" endif
 
 if exists('*shiftwidth')
   fun! s:shiftwidth()
@@ -82,7 +82,7 @@ fun! GetTamarinIndent()
     return s:shiftwidth()
   elseif l:this =~# '^\s*--[>\[]'
     return l:prevind - s:shiftwidth()
-  elseif l:this =~# '^\s*in\s*$'
+  elseif l:this =~# '^\s*in\%(\s\|$\)'
     return s:find_pair('\<let\>', '', '\<in\>')
   elseif l:this =~# '^\s*)'
     return s:find_pair('(', '', ')')
@@ -100,7 +100,7 @@ fun! GetTamarinIndent()
 
   if l:prev =~# '^\s*\<\%(begin\|let\)\>'
     return l:prevind + s:shiftwidth()
-  elseif l:prev =~# '^\s*in\s*$'
+  elseif l:prev =~# '^\s*in\%(\s\|$\)'
     return l:prevind + s:shiftwidth()
   elseif l:prev =~# 'rule.*:\s*$'
     return l:prevind + s:shiftwidth() + (l:this =~# '\<let\>' ? 0 : s:shiftwidth())
