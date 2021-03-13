@@ -76,7 +76,7 @@ fun! GetTamarinIndent()
   endif
 
   let l:prevind = indent(l:prevlnum)
-  let l:this = substitute(getline(v:lnum), '\%(\/\*.\{-}\*\/\)\|\/\/.*$', '', 'g')
+  let l:this = substitute(getline(v:lnum), '/[/*].*$', '', '')
 
   if l:this =~# '^\s*\<\%(lemma\|rule\|functions\|equations\|restriction\)\>'
     return s:shiftwidth()
@@ -96,15 +96,15 @@ fun! GetTamarinIndent()
     return 0
   endif
 
-  let l:prev = substitute(getline(l:prevlnum), '\/\*.\{-}\*\/\|\/\/.*$', '', 'g')
+  let l:prev = substitute(getline(l:prevlnum), '/[/*].*$', '', '')
 
   if l:prev =~# '^\s*\<\%(begin\|let\)\>'
     return l:prevind + s:shiftwidth()
   elseif l:prev =~# '^\s*in\s*$'
     return l:prevind + s:shiftwidth()
-  elseif l:prev =~# 'rule.*:\s*\%(/\*.*\)\=$'
+  elseif l:prev =~# 'rule.*:\s*$'
     return l:prevind + s:shiftwidth() + (l:this =~# '\<let\>' ? 0 : s:shiftwidth())
-  elseif l:prev =~# '[.:=]\s*\%(/\*.*\)\=$'
+  elseif l:prev =~# '[.:=]\s*$'
     return l:prevind + s:shiftwidth()
   elseif l:prev =~# '^\s*\%(--[>\[]\|"\)'
     return l:prevind + s:shiftwidth()
