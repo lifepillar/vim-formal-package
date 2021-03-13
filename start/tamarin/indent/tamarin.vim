@@ -17,9 +17,9 @@ setlocal nosmartindent
 
 let b:undo_indent = "setl indentexpr< indentkeys< lisp< smartindent<"
 
-" if exists("*GetTamarinIndent")
-"   finish
-" endif
+if exists("*GetTamarinIndent")
+  finish
+endif
 
 if exists('*shiftwidth')
   fun! s:shiftwidth()
