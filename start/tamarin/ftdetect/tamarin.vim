@@ -1,2 +1,2 @@
-au BufNewFile,BufRead *.spthy,*.sapic setfiletype tamarin
+autocmd BufRead,BufNewFile *.spthy,*.sapic setfiletype tamarin
 
