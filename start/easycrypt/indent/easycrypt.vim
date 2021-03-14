@@ -97,6 +97,10 @@ fun! GetEasyCryptIndent()
     return l:prevind + s:shiftwidth()
   endif
 
+  if l:prev =~# '^\s*if\>'
+    return l:prevind + s:shiftwidth()
+  endif
+
   return l:prevind
 endf
 
