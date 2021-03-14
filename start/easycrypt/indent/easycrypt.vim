@@ -82,6 +82,8 @@ fun! GetEasyCryptIndent()
     return s:find_pair('(', '', ')')
   endif
 
+  let l:prev = substitute(getline(l:prevlnum), '(\*.*$', '', '')
+
   " Indent when the previous line ends with certain keywords or symbols
   if l:prev =~# '\%(\<proof\.\|\<with\>\|:\)\s*$'
     return l:prevind + s:shiftwidth()
