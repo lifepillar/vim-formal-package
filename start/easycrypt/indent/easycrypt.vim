@@ -9,11 +9,15 @@ endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetEasyCryptIndent()
-setlocal indentkeys+==else,qed.,0)
+setlocal indentkeys=o,O,=else,=qed.,0),0],0}
 setlocal nolisp
 setlocal nosmartindent
 
 let b:undo_indent = "setl indentkeys< indentexpr< lisp< smartindent<"
+
+" if exists("*GetEasyCryptIndent")
+"   finish
+" endif
 
 if exists('*shiftwidth')
   fun! s:shiftwidth()
@@ -26,51 +30,56 @@ else
   endf
 endif
 
-" if exists("*GetEasyCryptIndent")
-"   finish
-" endif
-
 fun! s:is_comment(l)
   return synIDattr(synID(a:l, match(getline(a:l), '\S') + 1, 1), "name") =~# "Comment"
 endf
 
-fun! GetEasyCryptIndent()
-  let l:this = getline(v:lnum)
-  let l:ind = indent(v:lnum)
+fun! s:find_pair(pstart, pmid, pend)
+  call cursor(v:lnum, 1)
+  return indent(searchpair(a:pstart, a:pmid, a:pend, 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string\\|comment"'))
+endf
 
-  " Get previous non-blank line
-  let l:prevlnum = prevnonblank(v:lnum - 1)
-  if l:prevlnum <= 0
-    return l:ind
+fun! s:find_comment_start(l)
+  call cursor(a:l, 1)
+  return searchpairpos('(\*', '\*', '\*)', 'bWn')[1] - 1
+endf
+
+fun! s:count(l, expr)
+  return str2nr(matchstr(execute(a:l .. 's/' .. a:expr .. '//egn'), '\d\+'))
+endf
+
+fun! s:prevnoncomment(l)
+  let l:prevlnum = prevnonblank(a:l)
+  while l:prevlnum > 0 && s:is_comment(l:prevlnum)
+    let l:prevlnum = prevnonblank(l:prevlnum - 1)
+  endwhile
+  return l:prevlnum
+endf
+
+fun! GetEasyCryptIndent()
+  if s:is_comment(v:lnum) && getline(v:lnum) !~# '^\s*(\*'
+    return s:find_comment_start(v:lnum)
   endif
 
-  let l:prev = getline(l:prevlnum)
-  let l:prevind = indent(l:prevlnum)
+  let l:prevlnum = s:prevnoncomment(v:lnum - 1)
 
-  " Indentation rules for comments
-  if s:is_comment(l:prevlnum)
-    " If the previous line was a one-line comment, keep the same indentation
-    if l:prev =~# '^\s*(\*.*\*)\s*$'
-      return l:prevind
-    endif
-    " Increase indentation after opening a multi-line comment
-    if l:prev =~# '^\s*(\*' && l:prev !~# '\*)\s*$'
-      return l:prevind + (l:this =~ '^\s*\*' ? 1 : s:shiftwidth())
-    endif
-    " Otherwise, decrease indentation after a closed comment
-    if l:prev =~# '\*)\s*$'
-      return l:prevind - (l:prev =~# '^\s*\*' ? 1 : s:shiftwidth())
-    endif
+  if l:prevlnum <= 0
     return -1
   endif
 
-  " Strip comments
-  let l:this = substitute(l:this, '(\*.\{-}\*)', '', 'g')
-  let l:prev = substitute(l:prev, '(\*.\{-}\*)', '', 'g')
+  let l:prevind = indent(l:prevlnum)
+  let l:this = substitute(getline(v:lnum), '(\*.*$', '', '')
 
-  " Unindent when there are some keywords at the start of a line.
-  if l:this =~# '^\s*\<\%(else\|proof\|qed\)\>'
+  if l:this =~# '^\s*\<\%(proof\|qed\)\>'
     return l:prevind - s:shiftwidth()
+  elseif l:this =~# '\<else\>'
+    return s:find_pair('\<if\>', '\<else\|elif\>', '\<else\>')
+  elseif l:this =~# '^\s*}'
+    return s:find_pair('{', '', '}')
+  elseif l:this =~# '^\s*\]'
+    return s:find_pair('\[', '', '\]')
+  elseif l:this =~# '^\s*)'
+    return s:find_pair('(', '', ')')
   endif
 
   " Indent when the previous line ends with certain keywords or symbols
@@ -78,20 +87,12 @@ fun! GetEasyCryptIndent()
     return l:prevind + s:shiftwidth()
   endif
 
-  " Indent when the previous line begins with certain keywords
-  " and does not end with a dot.
-  " if l:prev =~# '^\s*\%(collision\|equation\|equiv\|forall\|fun\|\<query\>.*event\>\|process\|query\|reduc\)[^.]*$'
-  "   return l:prevind + s:shiftwidth()
-  " endif
-
-  " Indent lines with an unmatched open parenthesis.
-  if l:prev =~# '\%(([^)]*\|\[[^\]]*\|{[^}]*\)$'
+  if s:count(l:prevlnum, '{') > s:count(l:prevlnum, '}')
     return l:prevind + s:shiftwidth()
-  endif
-
-  " Decrease indent in lines with an unmatched closed parenthesis.
-  if l:this =~# '^\%([^(]*)\|[^\[]*\]\|[^{]*}\)'
-    return l:prevind - s:shiftwidth()
+  elseif s:count(l:prevlnum, '(') > s:count(l:prevlnum, ')')
+    return l:prevind + s:shiftwidth()
+  elseif s:count(l:prevlnum, '\[') > s:count(l:prevlnum, '\]')
+    return l:prevind + s:shiftwidth()
   endif
 
   return l:prevind
