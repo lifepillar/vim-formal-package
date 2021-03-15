@@ -9,7 +9,7 @@ endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetEasyCryptIndent()
-setlocal indentkeys=o,O,=else,=qed.,0),0],0}
+setlocal indentkeys=o,O,=else,=proof,=qed.,0),0],0}
 setlocal nolisp
 setlocal nosmartindent
 
