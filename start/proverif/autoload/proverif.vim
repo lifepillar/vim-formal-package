@@ -129,9 +129,15 @@ function! s:callback(path, start_time, job, status) abort
 endfunction
 
 function! proverif#command()
-  let libs = get(b:, 'proverif_lib', get(g:, 'proverif_lib', []))
+  let l:lib = get(b:, 'proverif_lib', get(g:, 'proverif_lib', ''))
+  let l:html = get(b:, 'proverif_html', get(g:, 'proverif_html', ''))
+  if !empty(l:html)
+    call mkdir(l:html, "p")
+    let l:html = " -html '" . l:html . "'"
+  endif
   return get(b:, 'proverif', get(g:, 'proverif', 'proverif'))
-        \ . (empty(libs) ? '' : ' -lib ') . join(libs, ' -lib ')
+        \ . (empty(l:lib) ? '' : ' -lib ' . l:lib)
+        \ . l:html
 endfunction
 
 " Accepts an optional path. If no argument is given, uses the path of the
