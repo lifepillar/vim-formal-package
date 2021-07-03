@@ -34,6 +34,7 @@ syn match   spthyOperator "\%(¬\|∧\|∨\|∥\|⇔\|⇒\)"
 
 syn match spthyIsFunction /\<\k\+\ze(/ contains=spthyFunction
 
+syn keyword spthyFunction contained diff
 " hashing
 syn keyword spthyFunction contained h
 " asymmetric-encryption
@@ -78,7 +79,7 @@ syn match   spthyFreshName "\~\a\k*\>"
 syn match   spthyPubName   "\$\a\k*\>"
 syn match   spthyTemporal  "#\a\k*\>"
 
-syn keyword spthyTodo contained TODO FIXME XXX
+syn keyword spthyTodo contained TODO FIXME NOTE XXX
 syn region  spthyComment start="/\*"  end="\*/" contains=spthyTodo
 syn match   spthyLineComment      "//.*" contains=spthyTodo
 
