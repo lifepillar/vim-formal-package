@@ -32,7 +32,7 @@ else
 endif
 
 " We assume that, if a line starts with a comment, the whole line is
-" a comment, i.e., we assume that the user does not use weird style, such as:
+" a comment, i.e., we assume that the user does not use a weird style, such as:
 "
 "     /* ... */ rule Foo:
 "
@@ -98,7 +98,7 @@ fun! GetTamarinIndent()
 
   let l:prev = substitute(getline(l:prevlnum), '/[/*].*$', '', '')
 
-  if l:prev =~# '^\s*\<\%(begin\|let\)\>'
+  if l:prev =~# '\<\%(begin\|let\)\>'
     return l:prevind + s:shiftwidth()
   elseif l:prev =~# '^\s*in\%(\s\|$\)'
     return l:prevind + s:shiftwidth()
