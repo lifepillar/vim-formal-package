@@ -17,7 +17,7 @@ still incomplete!
 
 ## Installation as a Vim package
 
-```
+```sh
 cd ~/.vim
 mkdir -p pack
 git clone https://github.com/lifepillar/vim-formal-package pack/formal
