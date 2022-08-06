@@ -14,3 +14,16 @@ Currently supported:
 **NOTE:** all of these plugins are still under development and some of them are
 still incomplete!
 
+
+## Installation via Package Manager
+
+Your can install the plugin with a package Manager, i.e., [Pathogen](https://github.com/tpope/vim-pathogen), [NeoBundle](https://github.com/Shougo/neobundle.vim), or [Plug](https://github.com/junegunn/vim-plug) should work
+
+For example with [Plug](https://github.com/junegunn/vim-plug) add the following `Plug` line between the `begin` and `end` call:
+```vim
+call plug#begin()
+... 
+Plug 'lifepillar/vim-formal-package', {'do': './convert_to_plugin.sh'}
+...
+call plug#end()
+```
