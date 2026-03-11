@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> **As of March 11, 2026, this repository is on [Codeberg](https://codeberg.org/lifepillar/vim-formal-package).**
+
 # Vim support for formal languages
 
 A package containing Vim plugins supporting various formal languages.
